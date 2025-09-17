@@ -26,7 +26,7 @@ const loginSession = (user, password) => {
         loginValidation = false
         countAttemps = 0
     } else {
-        alert("Access denied")
+        console.log("Access denied")
         countAttemps += 1
     }
     return access 
