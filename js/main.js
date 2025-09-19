@@ -18,11 +18,19 @@ let tasks = []
 let days = []
 let months = []
 
+// array Views
+let userViewData = ""
+
+
 let newTask
 let newTaskDay
 let newTaskMonth
 
 let editTask
+let updateTask
+let updateDay
+let updateMonth
+
 
 // Functions
 
@@ -91,6 +99,28 @@ function userChoice() {
     return user_choise
 }
 
+function viewArrayDetails() {
+    userViewData = ""
+    let countArray = 1
+    let countArrayDayMonth = 0
+
+    for (const taskData of tasks) {
+        const taskDay = days[countArrayDayMonth]
+        const taskMonth = months[countArrayDayMonth]
+
+        const taskDataCap = taskData.charAt(0).toUpperCase() + taskData.slice(1)
+        const taskMonthCap = taskMonth.charAt(0).toUpperCase() + taskMonth.slice(1)
+
+        userViewData += `${countArray}. On ${taskMonthCap} ${taskDay} you have this task: ${taskDataCap}\n`
+
+        countArrayDayMonth++
+        countArray++
+    }
+
+    alert("-----------------------------------------\n" + userViewData + "-----------------------------------------")
+
+    return userViewData
+}
 
 
 // Code
@@ -124,13 +154,37 @@ if (access) {
                     months.push(newTaskMonth)
                     alert("-----------------" + "\n" + "done! " + displayName + "\n" + "Task added!" + "\n" + "-----------------")
                 } else {
-                    alert("You chose not to add a new task. Returning to menu...");
+                    alert("You choose not to add a new task. Returning to menu...");
                 }
 
 
                 break
 
-            case 2:
+            case 2: 
+
+                viewArrayDetails()
+
+                editTask = parseInt(prompt("Please choose the task you want to edit"))-1
+                editTask = isNaN(editTask) ? 0 : editTask
+
+                alert("You selected:" + "\n" + tasks[editTask] + + "\n" + "On" + months[editTask] + "\n" + days[editTask])
+
+                updateTask = newTask_prompt()
+                updateDay = newTaskDay_prompt()
+                updateMonth = newTaskMonth_prompt()
+
+
+                if (userChoice()) {
+
+                    tasks[editTask] = updateTask
+                    days[editTask] = updateDay
+                    months[editTask] = updateMonth
+
+                    alert("✔ Task updated successfully!");
+                } else {
+                    alert("✖ No changes made.");
+                }
+
                 break
 
 
@@ -139,17 +193,8 @@ if (access) {
 
 
             case 4:
-                let countArray = 1
-                let userViewData = ""
 
-                for (let i = 0; i < tasks.length; i++) {
-                    const taskDataCap = tasks[i].charAt(0).toUpperCase() + tasks[i].slice(1)
-                    const taskMonthCap = months[i].charAt(0).toUpperCase() + months[i].slice(1)
-                    userViewData += countArray + ". On " + taskMonthCap + " " + days[i] + ", you have this task: " + taskDataCap + "\n"
-                    countArray += 1
-                }
-
-                alert("-----------------------------------------" + "\n" + userViewData + "\n" + "-----------------------------------------")
+                viewArrayDetails()
                 break
 
             default:
@@ -160,8 +205,6 @@ if (access) {
 
 
     }
-
-
 
 }
 
