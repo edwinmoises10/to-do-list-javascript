@@ -1,4 +1,7 @@
-SECURE TO DO LIST - JS
+SECURE TO DO LIST - JS 
+
+User: moises 
+Password: 1234
 
 Parte 1: Validación de credenciales del usuario
 
@@ -23,3 +26,4 @@ Parte 4: Uso del tercerio para validar que el numero ingresado no sea isNan o in
 
     let value = parseInt(prompt("Enter the number: "))
 	value = isNaN(value) ? 0 : value
+
