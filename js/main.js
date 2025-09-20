@@ -21,16 +21,17 @@ let months = []
 // array Views
 let userViewData = ""
 
-
+//new taks
 let newTask
 let newTaskDay
 let newTaskMonth
-
+// edit task
 let editTask
 let updateTask
 let updateDay
 let updateMonth
-
+//delete task
+let taskDelete
 
 // Functions
 
@@ -99,6 +100,7 @@ function userChoice() {
     return user_choise
 }
 
+// Function View Arrays User
 function viewArrayDetails() {
     userViewData = ""
     let countArray = 1
@@ -117,11 +119,10 @@ function viewArrayDetails() {
         countArray++
     }
 
-    alert("-----------------------------------------\n" + userViewData + "-----------------------------------------")
+ alert("---------------------------------------------------\n" + userViewData +       "---------------------------------------------------")
 
     return userViewData
 }
-
 
 // Code
 
@@ -154,57 +155,61 @@ if (access) {
                     months.push(newTaskMonth)
                     alert("-----------------" + "\n" + "done! " + displayName + "\n" + "Task added!" + "\n" + "-----------------")
                 } else {
-                    alert("You choose not to add a new task. Returning to menu...");
+                    alert("You choose not to add a new task. Returning to menu...")
                 }
-
-
                 break
 
-            case 2: 
+            case 2:
 
                 viewArrayDetails()
 
-                editTask = parseInt(prompt("Please choose the task you want to edit"))-1
-                editTask = isNaN(editTask) ? 0 : editTask
+                editTask = parseInt(prompt("Please choose the task you want to edit")) - 1
+                editTask = isNaN(editTask) ? -1 : editTask
+                if (userChoice() && (editTask < tasks.length) && (editTask >= 0)) {
+                    alert(
+                        "You selected: " + "\n" +
+                        "Task : " + tasks[editTask] + "\n" +
+                        "Date : " + months[editTask] + " " + "Day : " + days[editTask])
 
-                alert("You selected:" + "\n" + tasks[editTask] + + "\n" + "On" + months[editTask] + "\n" + days[editTask])
-
-                updateTask = newTask_prompt()
-                updateDay = newTaskDay_prompt()
-                updateMonth = newTaskMonth_prompt()
-
-
-                if (userChoice()) {
+                    updateTask = newTask_prompt()
+                    updateDay = newTaskDay_prompt()
+                    updateMonth = newTaskMonth_prompt()
 
                     tasks[editTask] = updateTask
                     days[editTask] = updateDay
                     months[editTask] = updateMonth
 
-                    alert("✔ Task updated successfully!");
+                    alert("Task updated successfully!")
                 } else {
-                    alert("✖ No changes made.");
+                    alert("Not found")
+                }
+                break
+
+            case 3:
+                viewArrayDetails()
+
+                taskDelete = parseInt(prompt("Please choose the task you want to delete")) - 1
+                taskDelete = isNaN(taskDelete) ? -1 : taskDelete
+                if (userChoice() && (taskDelete < tasks.length) && (taskDelete >= 0)) {
+                    tasks.splice(taskDelete, 1)
+                    days.splice(taskDelete, 1)
+                    months.splice(taskDelete, 1)
+                    alert("Task Delete")
+                } else {
+                    alert("Not found")
                 }
                 break
 
 
-            case 3:
-                break
-
-
             case 4:
-
                 viewArrayDetails()
                 break
 
             default:
                 alert("Wrong item")
         }
-
         menuSwitch = menu()
-
-
     }
-
 }
 
 
